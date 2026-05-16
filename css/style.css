@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 16px 0;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo { font-size: 24px; }
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 15px;
+}
+
+nav a:hover { color: #f39c12; }
+
+/* Main */
+main {
+  padding: 40px 20px;
+}
+
+main h2 {
+  margin-bottom: 24px;
+  font-size: 22px;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 8px;
+}
+
+/* Card bài viết */
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.card h3 a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.card h3 a:hover { color: #f39c12; }
+
+.date {
+  color: #999;
+  font-size: 13px;
+  margin: 6px 0 12px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 18px;
+  background: #2c3e50;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn:hover { background: #f39c12; }
+
+/* Footer */
+footer {
+  background: #2c3e50;
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  font-size: 14px;
+}
