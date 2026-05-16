@@ -1,49 +1,588 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog của tôi</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>HVAC Design | Nguyễn Quảng Sơn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #C0152A;
+      --red-dark: #8B0000;
+      --red-light: #e8192e;
+      --black: #0d0d0d;
+      --gray: #1a1a1a;
+      --gray-mid: #444;
+      --gray-light: #f5f5f5;
+      --white: #ffffff;
+      --gold: #c9a84c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--black);
+      border-bottom: 2px solid var(--red);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--white);
+      letter-spacing: 3px;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--red); }
+
+    nav { display: flex; gap: 32px; }
+
+    nav a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 1px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--red); }
+
+    /* ===== HERO ===== */
+    .hero {
+      margin-top: 64px;
+      background: var(--black);
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'HVAC';
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 280px;
+      color: rgba(192,21,42,0.07);
+      letter-spacing: -10px;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-size: 11px;
+      letter-spacing: 3px;
+      padding: 4px 12px;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: #888;
+      line-height: 1.8;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 14px 32px;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .hero-btn:hover { background: var(--red-light); }
+
+    /* Profile card */
+    .profile-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(192,21,42,0.3);
+      padding: 32px;
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      border: 3px solid var(--red);
+      overflow: hidden;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .profile-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px;
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .profile-title {
+      font-size: 12px;
+      color: var(--red);
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .profile-desc {
+      font-size: 12px;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    /* ===== STATS ===== */
+    .stats {
+      background: var(--red);
+      padding: 28px 40px;
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      color: white;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 2px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ===== EXPERTISE ===== */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .section-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 60px;
+      color: var(--red);
+      line-height: 1;
+      opacity: 0.3;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: #e0e0e0;
+    }
+
+    .expertise-item {
+      background: var(--white);
+      padding: 36px 32px;
+      transition: background 0.2s;
+    }
+
+    .expertise-item:hover {
+      background: var(--gray-light);
+    }
+
+    .expertise-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+
+    .expertise-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 8px;
+    }
+
+    .expertise-name-en {
+      font-size: 11px;
+      color: var(--red);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .expertise-desc {
+      font-size: 13px;
+      color: var(--gray-mid);
+      line-height: 1.7;
+    }
+
+    /* ===== ARTICLES ===== */
+    .articles-bg {
+      background: var(--gray-light);
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .article-card {
+      background: var(--white);
+      border-top: 3px solid transparent;
+      padding: 28px;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .article-card:hover {
+      border-top-color: var(--red);
+      transform: translateY(-4px);
+    }
+
+    .article-tag {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      letter-spacing: 2px;
+      padding: 3px 8px;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .article-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .article-date {
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 1px;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-section {
+      background: var(--black);
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .contact-section h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 32px;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .contact-section p {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 14px 40px;
+      text-decoration: none;
+      font-size: 13px;
+      letter-spacing: 2px;
+      transition: all 0.2s;
+    }
+
+    .contact-btn:hover {
+      background: var(--red);
+      color: white;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #080808;
+      border-top: 1px solid #1a1a1a;
+      padding: 24px 40px;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: #444;
+      letter-spacing: 1px;
+    }
+
+    footer span { color: var(--red); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .profile-card { display: none; }
+      .hero h1 { font-size: 32px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .expertise-grid { grid-template-columns: 1fr; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .header-inner { padding: 0 20px; }
+      nav { gap: 16px; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- HEADER -->
   <header>
-    <div class="container">
-      <h1 class="logo">Blog của tôi</h1>
+    <div class="header-inner">
+      <a href="index.html" class="logo">HVAC<span>.</span>DESIGN</a>
       <nav>
-        <a href="index.html">Trang chủ</a>
-        <a href="about.html">Giới thiệu</a>
-        <a href="contact.html">Liên hệ</a>
+        <a href="#">ホーム</a>
+        <a href="#">専門知識</a>
+        <a href="#">記事</a>
+        <a href="#">お問い合わせ</a>
       </nav>
     </div>
   </header>
 
-  <main class="container">
-    <h2>Bài viết mới nhất</h2>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-tag">HVAC SPECIALIST</span>
+        <h1>空調設備の<br><em>専門家</em>として</h1>
+        <p class="hero-sub">
+          建築設備・空気調和システムの設計・施工・管理に<br>
+          5年以上の実務経験を持つHVACエンジニア。<br>
+          日本の設計基準（JIS・国土交通省）に精通しています。
+        </p>
+        <a href="#" class="hero-btn">記事を読む →</a>
+      </div>
 
-    <div class="card">
-      <h3><a href="#">Bài viết số 1</a></h3>
-      <p class="date">16/05/2026</p>
-      <p>Đây là nội dung tóm tắt của bài viết số 1...</p>
-      <a href="#" class="btn">Đọc thêm</a>
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <img src="images/avatar.jpg" alt="グエン　クアン　ソン">
+        </div>
+        <div class="profile-name">グエン　クアン　ソン</div>
+        <div class="profile-title">HVAC ENGINEER</div>
+        <p class="profile-desc">
+          空気調和設備・換気設備・<br>
+          熱源設備の設計専門家。<br>
+          JIS規格・機械設備設計基準<br>
+          に基づく設計を実施。
+        </p>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h3><a href="#">Bài viết số 2</a></h3>
-      <p class="date">15/05/2026</p>
-      <p>Đây là nội dung tóm tắt của bài viết số 2...</p>
-      <a href="#" class="btn">Đọc thêm</a>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div>
+        <div class="stat-num">5+</div>
+        <div class="stat-label">実務経験年数</div>
+      </div>
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">設計プロジェクト</div>
+      </div>
+      <div>
+        <div class="stat-num">100+</div>
+        <div class="stat-label">技術記事</div>
+      </div>
+      <div>
+        <div class="stat-num">JIS</div>
+        <div class="stat-label">基準準拠設計</div>
+      </div>
     </div>
+  </div>
 
-  </main>
+  <!-- EXPERTISE -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">専門分野</h2>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-item">
+        <div class="expertise-icon">❄️</div>
+        <div class="expertise-name">空気調和設備</div>
+        <div class="expertise-name-en">AIR CONDITIONING</div>
+        <p class="expertise-desc">EHP・GHP・中央熱源方式など、各種空調システムの設計・能力計算・JIS条件への補正計算を実施します。</p>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">🌬️</div>
+        <div class="expertise-name">換気設備</div>
+        <div class="expertise-name-en">VENTILATION</div>
+        <p class="expertise-desc">第1種〜第3種換気、全熱交換器、外気処理ユニットの設計。室内空気質（IAQ）の確保を最優先に計画します。</p>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">🔥</div>
+        <div class="expertise-name">熱源設備</div>
+        <div class="expertise-name-en">HEAT SOURCE</div>
+        <p class="expertise-desc">ボイラー、チラー、ヒートポンプなど熱源機器の選定・容量算定。省エネルギー性・経済性を考慮した設計を行います。</p>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">📐</div>
+        <div class="expertise-name">熱負荷計算</div>
+        <div class="expertise-name-en">HEAT LOAD CALCULATION</div>
+        <p class="expertise-desc">空調熱負荷（顕熱・潜熱）の詳細計算。方位別・時刻別の最大負荷を算定し、最適な機器容量を決定します。</p>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">💧</div>
+        <div class="expertise-name">衛生設備</div>
+        <div class="expertise-name-en">PLUMBING</div>
+        <p class="expertise-desc">給排水・衛生設備との総合的な調整。建築設備全体を俯瞰した設計コーディネートを得意とします。</p>
+      </div>
+      <div class="expertise-item">
+        <div class="expertise-icon">📊</div>
+        <div class="expertise-name">省エネ設計</div>
+        <div class="expertise-name-en">ENERGY SAVING</div>
+        <p class="expertise-desc">建築物省エネ法（PAL*・BEMS）に対応した設備設計。エネルギー消費量の削減と快適性の両立を実現します。</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- ARTICLES -->
+  <div class="articles-bg">
+    <section class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2 class="section-title">最新記事</h2>
+      </div>
+      <div class="articles-grid">
+        <div class="article-card">
+          <span class="article-tag">空調設備</span>
+          <h3 class="article-title">JIS条件への能力補正方法：EHP・GHPの外気温度補正グラフの読み方</h3>
+          <p class="article-date">2026.05.16</p>
+        </div>
+        <div class="article-card">
+          <span class="article-tag">設計基準</span>
+          <h3 class="article-title">冷媒配管の長さ・高低差による能力変化率の計算と補正係数の適用</h3>
+          <p class="article-date">2026.05.15</p>
+        </div>
+        <div class="article-card">
+          <span class="article-tag">ファンコイル</span>
+          <h3 class="article-title">ファンコンベクターの暖房能力算定：経年係数・能力補償係数の考え方</h3>
+          <p class="article-date">2026.05.14</p>
+        </div>
+        <div class="article-card">
+          <span class="article-tag">換気設備</span>
+          <h3 class="article-title">全熱交換器の選定と外気処理ユニットの能力補正（参考）について</h3>
+          <p class="article-date">2026.05.13</p>
+        </div>
+        <div class="article-card">
+          <span class="article-tag">熱負荷</span>
+          <h3 class="article-title">空調ゾーニングの基本：方位別・熱負荷傾向別・使用条件別の計画</h3>
+          <p class="article-date">2026.05.12</p>
+        </div>
+        <div class="article-card">
+          <span class="article-tag">省エネ</span>
+          <h3 class="article-title">建築物省エネ法対応：PAL*計算とBEMSによるエネルギー管理の実務</h3>
+          <p class="article-date">2026.05.11</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-section">
+    <h2>お問い合わせ</h2>
+    <p>設計相談・技術的なご質問はこちらからどうぞ</p>
+    <a href="mailto:contact@hvac-design.vn" class="contact-btn">メールを送る</a>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="container">
-      <p>© 2026 Blog của tôi</p>
-    </div>
+    <p>© 2026 <span>HVAC.DESIGN</span> — グエン　クアン　ソン. All rights reserved.</p>
   </footer>
 
-  <script src="js/main.js"></script>
 </body>
 </html>
